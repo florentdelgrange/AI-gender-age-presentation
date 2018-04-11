@@ -1,0 +1,463 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% I, the copyright holder of this work, release this work into the
+%% public domain. This applies worldwide. In some countries this may
+%% not be legally possible; if so: I grant anyone the right to use
+%% this work for any purpose, without any conditions, unless such
+%% conditions are required by law.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[compress]{beamer}
+\usetheme[faculty=phil, navigation, microtype]{fibeamer}
+%\usetheme[logo=resources/NOKIA]{fibeamer}
+\useoutertheme{miniframes}
+\setbeamercolor{section in head/foot}{fg=white, bg=fibeamer@blue}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\title{seL4: Formal verification of an OS kernel} %% that will be typeset on the
+\author{Clément Tamines \& Florent Delgrange}
+\vspace{0.5cm}
+\subtitle{\normalsize UMONS \\ Faculty of Science \\ Mab2 Computer Science}
+\date{\today}
+%% These additional packages are used within the document:
+\usepackage{ragged2e}  % `\justifying` text
+\usepackage{cancel}
+\usepackage{bbold}
+\usepackage{booktabs}  % Tables
+\usepackage{slashed}
+\usepackage{centernot}
+\usepackage{tabularx}
+\usepackage{tikz}      % Diagrams
+\usetikzlibrary{calc, shapes, backgrounds}
+\usepackage{arevmath}
+\usepackage{amsmath, amssymb}
+\usepackage{url}       % `\url`s
+\usepackage{changepage}
+\usepackage{cprotect}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{biblatex}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{bbold}
+\usepackage[normalem]{ulem}
+\usepackage{verbatim}
+\usepackage{minted}
+%\usepackage{pstricks,pst-node}
+%\usepackage{fancyvrb}
+%\usepackage{listings}
+
+
+\definecolor{DarkOrange}{HTML}{FF8C00}
+\newtheorem{theoreme}{Theorem}
+\newtheorem{lemme}{Lemma}
+
+\title{AI: Deep Learning for\\\vspace{-.05\linewidth} Computer Vision $\quad  \quad \quad \quad \quad$\includegraphics[width=0.2\linewidth]{resources/eye}\\
+{\normalsize A Data Science Approach}} %% that will be typeset on the
+%\subtitle{Presentation Subtitle} %% title page.
+
+\bibliography{bib}
+\begin{document}
+  \begin{frame}[plain]
+    \maketitle
+  \end{frame}
+
+  \AtBeginSection[]
+    {
+      %  \begin{frame}<beamer>
+      %  \frametitle{Plan}
+      %  \tableofcontents[currentsection]
+      %  \end{frame}
+      \begin{frame}{\contentsname}
+      %\vspace{-0.05\linewidth}
+      \tableofcontents[currentsection]
+      \end{frame}
+    }
+
+\section{Motivations}
+\subsection{Machine learning}
+\begin{frame}{Machine learning}
+  \begin{itemize}
+    \item Capacité d'{\color{fibeamer@orange}apprendre} à l'aide d'une {\color{fibeamer@orange}base de données}
+    \begin{itemize}
+      \item[$\rightarrow$] Big Data
+      \item[$\rightarrow$] Nettoyage des données
+      \item[$\rightarrow$] Préparation des données
+    \end{itemize}
+    \item {\color{fibeamer@orange}Entraînement} de {\color{fibeamer@orange}modèles} grâce à ces données
+    \item Modèles {\color{fibeamer@orange}prédictifs}
+    \begin{itemize}
+      \item[$\rightarrow$] classification\\
+        exemple : homme/femme ?
+      \item[$\rightarrow$] régression\\
+        exemple : âge ?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Entraînement}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.8\linewidth]{resources/resume1}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Entraînement}{Exemple : Iris database}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{resources/iris}
+  \end{figure}
+  \vspace{-.05\linewidth}
+  \begin{itemize}
+    \item Attributs: sepal length, sepal width, petal length, petal width
+    \item Labels: Iris Virginica, Iris Versicolors, Iris Setosa
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Prédictions}
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.7\linewidth]{resources/resume2}
+  \end{figure}
+  \vspace{-.05\linewidth}
+  \begin{itemize}
+    \item \textbf{\color{fibeamer@orange}Exemple} : selon les longueurs/largeurs des sépales et pétales, prédire l'espèce d'Iris (classifieur)
+    \item \textbf{\color{fibeamer@orange}Remarque} : Un régresseur peut être vu comme une fonction
+    \[ f: \mathbb{R}^n \, \rightarrow \, \mathbb{R}, \; x_1, x_2, \dots x_n \mapsto f(x_1, x_2, \dots, x_n)\]
+    où $(x_i)_{1\leq i \leq n}$ est un vecteur de $n$ attributs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Types de modèles}
+  \begin{adjustwidth}{-2.5em}{-2.5em}
+  \begin{columns}
+    \begin{column}{0.33\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{resources/logreg}
+      \\{\footnotesize Régression logistique}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth]{resources/lsvm}\\
+      {\footnotesize Machine à vecteurs de support}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{resources/CART}\\
+      {\footnotesize Arbre de décisions (CART)}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{columns}
+   \begin{column}{0.33\textwidth}
+     \centering
+     \includegraphics[width=0.9\textwidth]{resources/random_forest}\\
+     {\footnotesize Forêt aléatoire}
+   \end{column}
+   \begin{column}{0.33\textwidth}
+     \centering
+     \includegraphics[width=\textwidth]{resources/MLP}\\
+     {\footnotesize Perceptron à couches multiples (RNN)}
+   \end{column}
+   \begin{column}{0.33\textwidth}
+     \centering
+     \includegraphics[width=0.65\textwidth]{resources/kNN}\\
+     {\footnotesize Autres (kNN, Naive Bayes, etc.)}
+   \end{column}
+  \end{columns}
+  \end{adjustwidth}
+\end{frame}
+
+\subsection{Signal}
+\begin{frame}{Traitement du signal pour le machine learning}
+  \begin{itemize}
+    \item Une image numérique est un signal discret en 2 dimensions
+    \begin{itemize}
+      \item[$\rightarrow$] 3 matrics de valeurs de 0 à 255 (RGB)
+    \end{itemize}
+    \begin{center}
+      \includegraphics[width=0.3\linewidth]{resources/RGB}
+    \end{center}
+    \item Comment extraires des attributs du signal ?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Extraction d'attributs}{Méthodes pré-neuronales (1D signal)}
+\begin{columns}
+  \begin{column}{0.5\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{resources/AA_exemple}
+  \end{column}
+  \begin{column}{0.5\linewidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{resources/CC_example}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Extraction d'attributs}{Méthodes pré-neuronales (2D signal)}
+\centering
+\includegraphics[width=0.9\linewidth]{resources/beatles}
+\end{frame}
+
+\section{\'Etude de cas : âge et genre}
+\subsection{Problème}
+\begin{frame}{\'Etude de cas : âge et genre}
+  \begin{itemize}
+    \item
+    \textbf{\color{fibeamer@orange}Projet} : créer un réseau de neuronnes convolutionnel
+    permettant de détecter l'{\color{fibeamer@orange}âge} et le {\color{fibeamer@orange}genre} d'une personne sur une photographie.
+    \item Projet réalisé avec python et le framework Keras (fournissant une API pour Tensorflow)
+    \item \textbf{\color{fibeamer@orange}Base de données}: Wikipedia, openu (43390 images en tout)
+    \item \textbf{\color{fibeamer@orange}\'Etapes :}
+    \begin{enumerate}
+      \item Régresseur de rotation
+      \item Classifieur binaire homme/femme
+      \item Régresseur d'âge
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+\subsection{Résistance aux rotations}
+
+\begin{frame}{Résistance aux rotations}
+  \textbf{\color{fibeamer@orange}Problématique :} le réseau doit reconnaître une personne en position \textit{penchée} et quelle que soit la rotation du visage.
+  \begin{itemize}
+    \item[$\rightarrow$] l'orientation du visage ne doit pas influencer le résultat !
+  \end{itemize}
+  \vspace{-.03\linewidth}
+  \begin{figure}
+    \includegraphics[width=0.8\linewidth]{resources/rotation2}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Régresseur de rotation}
+  \begin{itemize}
+    \item On commence par créer un réseau de neuronnes convolutionnel jouant le rôle de \textbf{\color{fibeamer@orange}régresseur} de rotation
+  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.15\linewidth}\scriptsize
+      \centering Entrée : image\\
+      \includegraphics[width=\linewidth]{resources/rotation3} $\rightarrow$
+    \end{column}
+    \begin{column}{0.7\linewidth}
+      \includegraphics[width=\linewidth]{resources/convolutional_neural_network}
+    \end{column}
+    \begin{column}{0.15\linewidth}\scriptsize
+      Sortie : angle\\
+      $\rightarrow$ 45.94
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Entraînement du régresseur de rotation}
+  \begin{itemize}
+    \item On utilise la base de données \textit{Openu}:
+      toute les images de la base de données ont été pré-traitées au préalables et sont toutes parfaitement redressées
+    \item On entraine le réseau en générant une rotation aléatoire pour chaque image, et chaque rotation correspond au label de cette image.
+  \end{itemize}
+  \begin{figure}
+    \includegraphics[width=0.6\linewidth]{resources/rotation}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Régresseur de rotation}{Résultats}
+  \begin{columns}
+    \begin{column}{0.333\linewidth}\scriptsize
+      \includegraphics[width=\linewidth]{resources/rotationreg1}
+    \end{column}
+    \begin{column}{0.333\linewidth}
+      \includegraphics[width=\linewidth]{resources/rotationreg2}
+    \end{column}
+    \begin{column}{0.333\linewidth}\scriptsize
+      \includegraphics[width=\linewidth]{resources/rotationreg3}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}{Classifieur homme/femme}
+  \begin{itemize}
+    \item Basé sur le réseau \textbf{Xception} de Google
+    \begin{itemize}
+      \item profondeur : 126
+      \item paramètres : 22,910,480
+      \item originalement entrainé pour reconnaitre les images de la base de données \textbf{image net} (pas de lien avec notre problème)
+    \end{itemize}
+    \begin{figure}
+      \includegraphics[width=\linewidth]{resources/Xception}
+    \end{figure}
+  \end{itemize}
+\end{frame}
+
+\subsection{Classification de genre}
+
+\begin{frame}{Classifieur homme/femme}{Apprentissage}\footnotesize
+  \vspace{-.06\linewidth}
+    \begin{figure}
+      \includegraphics[width=\linewidth]{resources/Xception}
+    \end{figure}
+  \vspace{-.05\linewidth}
+\begin{itemize}
+    \item Apprentissage par \textbf{\color{fibeamer@orange}transfert}: on utilise le réseau Xception de Google déjà entrainé en ``gelant''
+    les 115 premières couches et en entrainant uniquement les couches restantes (top layers) pour notre problème.
+    \item \textbf{\color{fibeamer@orange}Affinement du résultat} : on répète l'opération en gelant cette fois la moitié du réseau, mais avec un taux d'apprentissage plus faible
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Classifieur homme/femme}{Apprentissage}
+\begin{itemize}
+  \item Le réseau doit être le plus \textbf{\color{fibeamer@orange}robuste} possible face aux translations, aux zooms, etc.
+  \begin{itemize}
+    \item[$\rightarrow$] Le sexe d'une personne ne doit pas changer en fonction de la position de son visage sur l'image
+  \end{itemize}
+  \item Entraînement par \textbf{\color{fibeamer@orange}augmentation de données}
+\end{itemize}
+  \vspace{-0.03\linewidth}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{resources/data-augmentation.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Classifieur homme/femme}{Résultats}
+    \begin{figure}
+      \includegraphics[width=\linewidth]{resources/fine-tuning}
+      \caption{Entraînement du modèle - en bleu clair : phase d'affinement}
+    \end{figure}
+\begin{itemize}
+  \item Accuracy : $99.52 \%$ (bornée) sur l'ensemble de test
+\end{itemize}
+\end{frame}
+
+\subsection{Régresseur d'âge}
+
+\begin{frame}{Régresseur d'âge}
+  \begin{itemize}
+    \item Apprentissage par transfert (depuis Xception)
+    \item Entraînement par augmentation de données
+    \item Les 20 dernières couches de convolution sont modifiées
+    \begin{itemize}
+      \item[$\rightarrow$] les dernières couches de convolution {\color{fibeamer@orange}se divisent en $2$ en fonction du sexe prédit par le réseau classifieur de genre}
+    \end{itemize}
+  \end{itemize}
+    \begin{figure}
+      \includegraphics[width=\linewidth]{resources/Xception}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Régresseur d'âge}
+  \vspace{-.11\linewidth}
+  \begin{figure}
+    \centering\hspace{.1\linewidth}
+    \includegraphics[width=0.4\linewidth]{resources/age_regressor}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Régresseur d'âge}{Résultats}
+    \begin{figure}
+      \includegraphics[width=\linewidth]{resources/age-reg}
+      \caption{Entraînement du modèle}
+    \end{figure}
+    \vspace{-.05\linewidth}
+\begin{itemize}
+  \item rmse (root mean square error) : $5.88$
+  \begin{itemize}
+    \item[$\rightarrow$] l'âge d'une personne est dans une intervale $\pm 5.88$ de la prédiction
+  \end{itemize}
+    \item Entraînement limité par le hardware
+\end{itemize}
+\end{frame}
+
+\subsection{Résultats}
+
+\begin{frame}{Résultats}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \inputminted[fontsize=\scriptsize]{python}{code2.py}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{resources/clem}
+    \end{column}
+  \end{columns}
+    $\rightarrow$ age : [[ 24.6701107]]
+\end{frame}
+
+\begin{frame}{Résultats}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \inputminted[fontsize=\scriptsize]{python}{code1.py}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{resources/flo}
+    \end{column}
+  \end{columns}
+    $\rightarrow$ age : [[25.11619949]]
+\end{frame}
+
+\begin{frame}{Résultats}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \inputminted[fontsize=\scriptsize]{python}{code3.py}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{resources/jerem}
+    \end{column}
+  \end{columns}
+    $\rightarrow$ age : [[24.46559525]]
+\end{frame}
+
+\begin{frame}{Résultats}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \inputminted[fontsize=\scriptsize]{python}{code4.py}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{resources/giorgio-armani}
+    \end{column}
+  \end{columns}
+    $\rightarrow$ age : [[29.9426403]]
+\end{frame}
+
+\begin{frame}{Résultats}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \inputminted[fontsize=\scriptsize]{python}{code5.py}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{resources/gandalf}
+    \end{column}
+  \end{columns}
+    $\rightarrow$ age : [[90.07471466]]\\
+    Résultat réaliste
+\end{frame}
+
+\begin{frame}{Résultats}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \inputminted[fontsize=\scriptsize]{python}{code6.py}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{resources/JKrowling}
+    \end{column}
+  \end{columns}
+    $\rightarrow$ age : [[52.0241394]]\\
+    Âge réel : 52 ans !
+\end{frame}
+
+\subsection{}
+% \begin{frame}[allowframebreaks]
+%         \nocite{*}
+%         \frametitle{Références}
+%       \printbibliography
+% \end{frame}
+
+\end{document}
