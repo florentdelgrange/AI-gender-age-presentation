@@ -76,7 +76,7 @@
       \end{frame}
     }
 
-\section{Motivations}
+\section{Introduction}
 \subsection{Machine learning}
 \begin{frame}{Machine learning}
   \begin{itemize}
@@ -97,11 +97,15 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Entraînement}
+\begin{frame}{Entraînement} \footnotesize
   \begin{figure}
   \centering
-  \includegraphics[width=0.8\linewidth]{resources/resume1}
+  \alt<2>{\includegraphics[width=0.7\linewidth]{resources/resume1}}{\includegraphics[width=0.7\linewidth]{resources/resume3}}
   \end{figure}
+  \begin{itemize}
+    \item<1-> \textbf{\color{fibeamer@orange}Entraînement supervisé} : le modèle s'entraîne sur base des attributs et des labels {\color{fibeamer@orange}labels} des instances du jeu de données et apprend de cette façon à reconnaître les labels des instances
+    \item<2-> \textbf{\color{fibeamer@orange}Entraînement non-supervisé} : le modèle apprend à séparer les données et à les classer uniquement sur base des attributs (\textbf{\color{fibeamer@orange}clustering})
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Entraînement}{Exemple : Iris database}
