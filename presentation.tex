@@ -174,7 +174,7 @@
    \end{column}
    \begin{column}{0.33\textwidth}
      \centering
-     \includegraphics[width=0.65\textwidth]{resources/kNN}\\
+     \includegraphics[width=0.65\textwidth]{resources/knn}\\
      {\footnotesize Autres (kNN, Naive Bayes, etc.)}
    \end{column}
   \end{columns}
@@ -211,6 +211,83 @@
 \begin{frame}{Extraction d'attributs}{Méthodes pré-neuronales (2D signal)}
 \centering
 \includegraphics[width=0.9\linewidth]{resources/beatles}
+\end{frame}
+
+\begin{frame}{Convolutions}
+	\centering
+	\includegraphics[width=0.9\linewidth]{resources/clem/convolution}
+\end{frame}
+
+\section{Réseaux de neurones}
+
+\begin{frame}{Réseau de neurones profond}
+  \begin{itemize}
+  	\item 	Composé de plusieurs \textbf{\color{fibeamer@orange}couches}
+  	\begin{itemize}
+  		\item[$\rightarrow$] une couche \textbf{\color{fibeamer@orange}d'entrée} (attributs)
+  		\item[$\rightarrow$] plusieurs couches \textbf{\color{fibeamer@orange} cachées} (calculs)
+  		\item[$\rightarrow$] une couche de {\color{fibeamer@orange}sortie} (probabilités)
+  	\end{itemize}
+  \end{itemize}	
+	\centering
+	\includegraphics[width=1\linewidth]{resources/clem/simple_network2}
+\end{frame}
+
+\begin{frame}{Fonctionnement d'un neurone}
+	\begin{itemize}
+		\item Calcule une \textbf{\color{fibeamer@orange}somme} des entrées multipliées par des poids 
+		\item Somme passée dans une \textbf{\color{fibeamer@orange}fonction d'activation}
+	\end{itemize}	
+	\centering
+	\includegraphics[width=0.9\linewidth]{resources/clem/perceptron2}
+\end{frame}
+
+\begin{frame}{Fonction d'erreur et backpropagation}
+	\begin{itemize}
+		\item Calcul de l'\textbf{\color{fibeamer@orange}erreur} 
+		\begin{itemize}
+		  \item[$\rightarrow$] différence entre la sortie et les valeurs attendues
+		  \item[$\rightarrow$] plusieurs fonctions d'erreur possibles
+		\end{itemize}
+		\item Utilisation de l'erreur pour modifier les poids dans le réseau : backpropagation
+	\end{itemize}	
+	\centering
+	\includegraphics[width=1\linewidth]{resources/clem/error}
+\end{frame}
+
+\begin{frame}{Réseaux convolutionnels}
+	\begin{itemize}
+		\item Utilisés pour la reconnaissance d'image
+		\begin{itemize}
+			\item[$\rightarrow$] entrée : image
+			\item[$\rightarrow$] couches de convolution
+			\item[$\rightarrow$] couches de pooling
+			\item[$\rightarrow$] couches denses
+		\end{itemize}
+		\item Le réseau apprend à reconnaitre des images et les labéliser
+	\end{itemize}	
+	\centering
+	\includegraphics[width=1\linewidth]{resources/clem/car2}
+\end{frame}
+
+\begin{frame}{Réseaux convolutionnels}
+	\begin{itemize}
+		\item Utilisés pour la reconnaissance d'image
+		\begin{itemize}
+			\item[$\rightarrow$] entrée : image
+			\item[$\rightarrow$] couches de convolution
+			\item[$\rightarrow$] couches de pooling
+			\item[$\rightarrow$] couches denses
+		\end{itemize}
+		\item Le réseau apprend à reconnaitre des images et les labéliser
+	\end{itemize}	
+	\centering
+	\includegraphics[width=1\linewidth]{resources/clem/convolutional_netowrk}
+\end{frame}
+
+\begin{frame}{Réseaux convolutionnels}	
+	\centering
+	\includegraphics[width=1\linewidth]{resources/clem/features}
 \end{frame}
 
 \section{\'Etude de cas : âge et genre}
@@ -404,7 +481,7 @@
     \end{column}
     \begin{column}{0.4\linewidth}
       \centering
-      \includegraphics[width=\linewidth]{resources/flo}
+      \includegraphics[width=\linewidth]{resources/Flo}
     \end{column}
   \end{columns}
     $\rightarrow$ age : [[25.11619949]]
@@ -471,4 +548,90 @@
 %       \printbibliography
 % \end{frame}
 
+\section{Conclusion}
+
+\begin{frame}{Applications}
+	Le machine learning, et particulièrement le deep learning 
+	\begin{itemize}
+		\item est utilisé dans l'industrie
+		\item a de vagues applications
+		\item permet la découverte de données
+	\end{itemize}
+	
+	Nous présentons ci-après plusieurs applications concrètes
+\end{frame}
+
+\begin{frame}
+	\frametitle{Speech recognition}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{resources/speech}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Vérification de la qualité}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\linewidth]{resources/quality}
+	\end{figure}
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Maintenance prédictive}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{resources/maintenance}
+		
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Médecine}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{resources/medical}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Finance}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\linewidth]{resources/stock}
+		
+	\end{figure}
+	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reconnaissance de texte}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{resources/text}
+	\end{figure}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Inconvénients}
+	
+	mark zuckerberg slide
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.72\linewidth]{resources/clem/zucc}
+		\end{figure}
+\end{frame}
 \end{document}
