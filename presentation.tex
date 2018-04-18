@@ -12,7 +12,7 @@
 %\usetheme[logo=resources/NOKIA]{fibeamer}
 \useoutertheme{miniframes}
 \setbeamercolor{section in head/foot}{fg=white, bg=fibeamer@blue}
-\usepackage[english]{babel}
+\usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \title{seL4: Formal verification of an OS kernel} %% that will be typeset on the
@@ -76,24 +76,43 @@
       \end{frame}
     }
 
+\begin{frame}{Table des matières}
+  \tableofcontents
+\end{frame}
+
 \section{Introduction}
 \subsection{Machine learning}
 \begin{frame}{Machine learning}
   \begin{itemize}
-    \item Capacité d'{\color{fibeamer@orange}apprendre} à l'aide d'une {\color{fibeamer@orange}base de données}
+    \item Capacité d'\textbf{\color{fibeamer@orange}apprendre} à l'aide d'une \textbf{\color{fibeamer@orange}base de données}
     \begin{itemize}
-      \item[$\rightarrow$] Big Data
-      \item[$\rightarrow$] Nettoyage des données
-      \item[$\rightarrow$] Préparation des données
+      \item[$\rightarrow$] \textbf{\color{fibeamer@orange}Nettoyage des données}: données invalides, non-complètes, non-uniformes, etc.
+      \item[$\rightarrow$] \textbf{\color{fibeamer@orange}Préparation des données}: \textbf{uniformiser} l'encodage des \textit{instances} du jeu de données et ses \textit{attributs}
+      \item[$\rightarrow$] \textbf{\color{fibeamer@orange} Big Data}
     \end{itemize}
-    \item {\color{fibeamer@orange}Entraînement} de {\color{fibeamer@orange}modèles} grâce à ces données
-    \item Modèles {\color{fibeamer@orange}prédictifs}
+    \item \textbf{\color{fibeamer@orange}Entraînement} de \textbf{\color{fibeamer@orange}modèles} grâce à ces données
+    \item Modèles \textbf{\color{fibeamer@orange}prédictifs}
     \begin{itemize}
-      \item[$\rightarrow$] classification\\
-        exemple : homme/femme ?
-      \item[$\rightarrow$] régression\\
+      \item[$\rightarrow$] classification
+        $\quad$ exemple : homme/femme ?
+      \item[$\rightarrow$] régression $ \quad \quad$
         exemple : âge ?
     \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Entraînement}{Exemple : Iris database}
+  %\vspace{-.05\linewidth}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{resources/iris}
+  \end{figure}
+  \vspace{-.05\linewidth}
+  \begin{itemize}
+    \item \textbf{\color{fibeamer@orange}Attributs}: longueur des sépales et des pétales, largeur des sépales et des pétales
+    \item \textbf{\color{fibeamer@orange}Labels}: Iris Virginica, Iris Versicolors, Iris Setosa
+    %\item \textit{\color{fibeamer@blue}Exemple $\rightarrow$ instance $i$}:
+    %$x^{(i)}=(5.1, 3.5, 1.4, 0.2)$, $y^{(i)} = (I. \, Setosa)$
   \end{itemize}
 \end{frame}
 
@@ -103,20 +122,8 @@
   \alt<2>{\includegraphics[width=0.7\linewidth]{resources/resume1}}{\includegraphics[width=0.7\linewidth]{resources/resume3}}
   \end{figure}
   \begin{itemize}
-    \item<1-> \textbf{\color{fibeamer@orange}Entraînement supervisé} : le modèle s'entraîne sur base des attributs et des labels {\color{fibeamer@orange}labels} des instances du jeu de données et apprend de cette façon à reconnaître les labels des instances
+    \item<1-> \textbf{\color{fibeamer@orange}Entraînement supervisé} : le modèle s'entraîne sur base des attributs et des \textit{\color{fibeamer@orange}labels} des instances {\color{fibeamer@blue}+} apprend à reconnaître les labels des instances
     \item<2-> \textbf{\color{fibeamer@orange}Entraînement non-supervisé} : le modèle apprend à séparer les données et à les classer uniquement sur base des attributs (\textbf{\color{fibeamer@orange}clustering})
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Entraînement}{Exemple : Iris database}
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.7\linewidth]{resources/iris}
-  \end{figure}
-  \vspace{-.05\linewidth}
-  \begin{itemize}
-    \item Attributs: sepal length, sepal width, petal length, petal width
-    \item Labels: Iris Virginica, Iris Versicolors, Iris Setosa
   \end{itemize}
 \end{frame}
 
@@ -179,7 +186,7 @@
   \begin{itemize}
     \item Une image numérique est un signal discret en 2 dimensions
     \begin{itemize}
-      \item[$\rightarrow$] 3 matrics de valeurs de 0 à 255 (RGB)
+      \item[$\rightarrow$] 3 matrices de valeurs de 0 à 255 (RGB)
     \end{itemize}
     \begin{center}
       \includegraphics[width=0.3\linewidth]{resources/RGB}
