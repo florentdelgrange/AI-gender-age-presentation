@@ -211,20 +211,30 @@
 \includegraphics[width=0.9\linewidth]{resources/beatles}
 \end{frame}
 
-\begin{frame}{Convolutions}
+\begin{frame}{Convolution}{Application d'un filtre sur une image}
 	\centering
-	\includegraphics[width=0.9\linewidth]{resources/clem/convolution}
+	\includegraphics[width=0.95\linewidth]{resources/clem/convolution}
+\end{frame}
+
+\begin{frame}{Exemple}
+  \begin{itemize}
+  	\item Différents \textbf{\color{fibeamer@orange}kernels} pour différents filtres
+  	\item Exemple : détection de \textbf{\color{fibeamer@orange}contours}
+  \end{itemize}
+  \bigskip
+	\centering
+	\includegraphics[width=1\linewidth]{resources/clem/rat}
 \end{frame}
 
 \section{Réseaux de neurones}
 \subsection{NN classiques}
-\begin{frame}{Réseau de neurones}
+\begin{frame}{Réseaux de neurones}
   \begin{itemize}
   	\item 	Composé de plusieurs \textbf{\color{fibeamer@orange}couches}
   	\begin{itemize}
   		\item[$\rightarrow$] une couche \textbf{\color{fibeamer@orange}d'entrée} (attributs)
   		\item[$\rightarrow$] plusieurs couches \textbf{\color{fibeamer@orange} cachées} (calculs)
-  		\item[$\rightarrow$] une couche de {\color{fibeamer@orange}sortie} (probabilités)
+  		\item[$\rightarrow$] une couche de \textbf{\color{fibeamer@orange}sortie} (probabilités)
   	\end{itemize}
   \end{itemize}
 	\centering
@@ -247,39 +257,40 @@
 		  \item[$\rightarrow$] différence entre la sortie et les valeurs attendues
 		  \item[$\rightarrow$] plusieurs fonctions d'erreur possibles
 		\end{itemize}
-		\item Utilisation de l'erreur pour modifier les poids dans le réseau : backpropagation
+		\item \textbf{\color{fibeamer@orange}Mise à jour} des poids du réseau : backpropagation
+		\begin{itemize}
+			\item[$\rightarrow$] apprentissage pour minimiser l'erreur
+					
+		\end{itemize}
 	\end{itemize}
+	\bigskip
 	\centering
 	\includegraphics[width=1\linewidth]{resources/clem/error}
 \end{frame}
 
 \subsection{Deep learning: CNN}
-\begin{frame}{Réseaux convolutionnels}
+\begin{frame}{Réseaux convolutionnels}{Principes}
 	\begin{itemize}
-		\item Utilisés pour la reconnaissance d'image
-		\begin{itemize}
-			\item[$\rightarrow$] entrée : image
-			\item[$\rightarrow$] couches de convolution
-			\item[$\rightarrow$] couches de pooling
-			\item[$\rightarrow$] couches denses
-		\end{itemize}
-		\item Le réseau apprend à reconnaitre des images et les labéliser
+		\item Utilisés pour la \textbf{\color{fibeamer@orange}reconnaissance d'image}
+		\item Basé sur l'utilisation de \textbf{\color{fibeamer@orange}convolutions}
+		\item Le réseau apprend à \textbf{\color{fibeamer@orange}labéliser} des images
 	\end{itemize}
+	\bigskip
 	\centering
 	\includegraphics[width=1\linewidth]{resources/clem/car2}
 \end{frame}
 
-\begin{frame}{Réseaux convolutionnels}
+\begin{frame}{Réseaux convolutionnels}{Architecture}
 	\begin{itemize}
-		\item Utilisés pour la reconnaissance d'image
-		\begin{itemize}
-			\item[$\rightarrow$] entrée : image
-			\item[$\rightarrow$] couches de convolution
-			\item[$\rightarrow$] couches de pooling
-			\item[$\rightarrow$] couches denses
-		\end{itemize}
-		\item Le réseau apprend à reconnaitre des images et les labéliser
+		\item Plusieurs types de couche
+  	\begin{itemize}
+  		\item[$\rightarrow$] une couche \textbf{\color{fibeamer@orange}d'entrée} (image sous forme de matrice)
+  		\item[$\rightarrow$] plusieurs couches de \textbf{\color{fibeamer@orange}convolutions} (application de filtres)
+  		\item[$\rightarrow$] plusieurs couches de \textbf{\color{fibeamer@orange}pooling} (réduction de la taille)
+  		 \item[$\rightarrow$] plusieurs couches \textbf{\color{fibeamer@orange}denses} (apprentissage de la classification)
+  	\end{itemize}
 	\end{itemize}
+	\bigskip
 	\centering
 	\includegraphics[width=1\linewidth]{resources/clem/convolutional_netowrk}
 \end{frame}
